@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="ea5706fd-70c1-4d49-a647-e949533ee80a" Publisher="CN=yqhou" Version="1.0.0.0" />
+  <Identity Name="60203.ICS" Publisher="CN=55E6BAB7-4DBD-4522-A14F-52EA65CA52F0" Version="1.1.1.0" />
   <mp:PhoneIdentity PhoneProductId="ea5706fd-70c1-4d49-a647-e949533ee80a" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>ICSReader</DisplayName>
+    <DisplayName>ICS日历事件导入</DisplayName>
     <PublisherDisplayName>燕青</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
