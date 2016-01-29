@@ -1,0 +1,33 @@
+﻿<Page x:Class="ICSReader.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:ICSReader"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <TextBlock Name="MessageTextBlock"
+                   HorizontalAlignment="Center"
+                   FontSize="18"
+                   Margin="20">目前仅支持单个日历基本信息导入</TextBlock>
+        <StackPanel HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center">
+            <Button Name="SelectFileButton"
+                    Content="Open A .ics File"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Height="100"
+                    Click="SelectFileButton_Click" />
+
+            <TextBlock FontSize="18"
+                       Margin="0,10,0,0"
+                       HorizontalAlignment="Center"
+                       Name="FileNameTextBlock" />
+            <TextBlock FontSize="18"
+                       Margin="0,10,0,0"
+                       HorizontalAlignment="Center"
+                       Name="StatusTextBlock" />
+        </StackPanel>
+    </Grid>
+</Page>
