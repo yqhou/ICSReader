@@ -26,9 +26,11 @@ namespace ICSReader
     public sealed partial class MainPage : Page
     {
         Appointment appointment;
+        public  MainPage current;
         public MainPage()
         {
             this.InitializeComponent();
+            current = this;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -72,6 +74,8 @@ namespace ICSReader
 
         private async void ImportIcsFile(StorageFile file)
         {
+            if (file == null)
+                return;
             FileNameTextBlock.Text = file.Path;
             var lines = await FileIO.ReadLinesAsync(file);
             appointment = Model.ICSReader.Read(lines);
@@ -85,6 +89,11 @@ namespace ICSReader
             {
                 StatusTextBlock.Text = "事件未成功添加.";
             }
+        }
+
+        public  void ImportIcsFileStatic(StorageFile file )
+        {
+            ImportIcsFile(file);
         }
 
         private Rect GetElementRect(FrameworkElement frameworkElement)

@@ -7,6 +7,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -69,7 +70,7 @@ namespace ICSReader
                 // 当导航堆栈尚未还原时，导航到第一页，
                 // 并通过将所需信息作为导航参数传入来配置
                 // 参数
-                rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                rootFrame.Navigate(typeof(MainPage));
             }
             // 确保当前窗口处于活动状态
             Window.Current.Activate();
@@ -79,13 +80,13 @@ namespace ICSReader
         {
             Frame rootFrame = Window.Current.Content as Frame;
             if (args.Files.Count == 0)
-                Exit();
-            var file = args.Files[0];
+                return;
+            var file = args.Files[0] as StorageFile;
             if( ! file.Name.EndsWith(".ics", StringComparison.CurrentCultureIgnoreCase))
             {
                 MessageDialog dialog = new MessageDialog("不支持的文件后缀名," + file.Name);
                 await dialog.ShowAsync();
-                Exit();
+                return;
             }
             // 不要在窗口已包含内容时重复应用程序初始化，
             // 只需确保窗口处于活动状态
@@ -105,8 +106,10 @@ namespace ICSReader
                 // 当导航堆栈尚未还原时，导航到第一页，
                 // 并通过将所需信息作为导航参数传入来配置
                 // 参数
-                rootFrame.Navigate(typeof(MainPage), args.Files[0]);
+                rootFrame.Navigate(typeof(MainPage), file);
             }
+            else if ( ((MainPage)rootFrame.Content).current != null )
+                (rootFrame.Content as MainPage).current.ImportIcsFileStatic(file as StorageFile);
             // 确保当前窗口处于活动状态
             Window.Current.Activate();
         }
@@ -129,11 +132,9 @@ namespace ICSReader
         /// <param name="e">有关挂起请求的详细信息。</param>
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
-            this.Exit();
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: 保存应用程序状态并停止任何后台活动
             deferral.Complete();
-
         }
     }
 }
