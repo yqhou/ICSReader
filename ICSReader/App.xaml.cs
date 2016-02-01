@@ -42,7 +42,7 @@ namespace ICSReader
         /// 将在启动应用程序以打开特定文件等情况下使用。
         /// </summary>
         /// <param name="e">有关启动请求和过程的详细信息。</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
 
             Frame rootFrame = Window.Current.Content as Frame;
@@ -74,6 +74,10 @@ namespace ICSReader
             }
             // 确保当前窗口处于活动状态
             Window.Current.Activate();
+            if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+            {
+                await Windows.UI.ViewManagement.StatusBar.GetForCurrentView().HideAsync();
+            }
         }
 
         protected override async void OnFileActivated(FileActivatedEventArgs args)
@@ -109,9 +113,13 @@ namespace ICSReader
                 rootFrame.Navigate(typeof(MainPage), file);
             }
             else if ( ((MainPage)rootFrame.Content).current != null )
-                (rootFrame.Content as MainPage).current.ImportIcsFileStatic(file as StorageFile);
+                (rootFrame.Content as MainPage).current.ImportIcsFile(file as StorageFile);
             // 确保当前窗口处于活动状态
             Window.Current.Activate();
+            if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+            {
+                await Windows.UI.ViewManagement.StatusBar.GetForCurrentView().HideAsync();
+            }
         }
         /// <summary>
         /// 导航到特定页失败时调用

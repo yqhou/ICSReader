@@ -52,31 +52,18 @@ namespace ICSReader
             StorageFile file = await openPicker.PickSingleFileAsync();
             if (file != null)
             {
-                FileNameTextBlock.Text = file.Path;
-                var lines = await FileIO.ReadLinesAsync(file);
-                appointment = Model.ICSReader.Read(lines);
-                var rect = GetElementRect(sender as FrameworkElement);
-                var appointmentId = await AppointmentManager.ShowAddAppointmentAsync(appointment, rect, Windows.UI.Popups.Placement.Default);
-                if( ! string.IsNullOrEmpty(appointmentId))
-                {
-                    StatusTextBlock.Text = "事件添加成功.";
-                }
-                else
-                {
-                    StatusTextBlock.Text = "事件未成功添加.";
-                }
-                
+                ImportIcsFile(file);         
             }
             else
                 FileNameTextBlock.Text = "operation cancelled";
             //var tzi = TimeZoneInfo.GetSystemTimeZones();
         }
 
-        private async void ImportIcsFile(StorageFile file)
+        public async void ImportIcsFile(StorageFile file)
         {
             if (file == null)
                 return;
-            FileNameTextBlock.Text = file.Path;
+            FileNameTextBlock.Text = file.Name;
             var lines = await FileIO.ReadLinesAsync(file);
             appointment = Model.ICSReader.Read(lines);
             var rect = GetElementRect(SelectFileButton as FrameworkElement);
@@ -89,11 +76,6 @@ namespace ICSReader
             {
                 StatusTextBlock.Text = "事件未成功添加.";
             }
-        }
-
-        public  void ImportIcsFileStatic(StorageFile file )
-        {
-            ImportIcsFile(file);
         }
 
         private Rect GetElementRect(FrameworkElement frameworkElement)

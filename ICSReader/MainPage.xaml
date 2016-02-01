@@ -21,7 +21,8 @@
                     Click="SelectFileButton_Click" />
 
             <TextBlock FontSize="18"
-                       Margin="0,10,0,0"
+                       Margin="10,10,10,0"
+                       TextWrapping="Wrap"
                        HorizontalAlignment="Center"
                        Name="FileNameTextBlock" />
             <TextBlock FontSize="18"
